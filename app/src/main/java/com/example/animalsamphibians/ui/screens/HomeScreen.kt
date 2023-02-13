@@ -14,18 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.animalsamphibians.model.AmphibianModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier.fillMaxSize()) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     ListAmphibians(modifier= modifier)
 }
 
@@ -36,7 +34,7 @@ fun ListAmphibians(modifier: Modifier = Modifier) {
         .background(MaterialTheme.colors.background)
     ){
         items(amphiList) {
-            AmphibianCard(amphibian = it,modifier = modifier.padding(top = 8.dp));
+            AmphibianCard(amphibian = it,modifier = modifier.padding(top = 8.dp))
         }
     }
 }
@@ -46,18 +44,20 @@ fun AmphibianCard(amphibian:AmphibianModel, modifier: Modifier = Modifier) {
     Card(elevation = 8.dp, modifier = modifier) {
         Column(modifier = Modifier) {
             Text(text = amphibian.name, modifier = Modifier
-                .fillMaxWidth()
+                //.fillMaxWidth()
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 8.dp),
-                fontSize = 26.sp,
-                fontWeight = FontWeight.Bold
+//                fontSize = 26.sp,
+//                fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.h3
             )
             Text(text = amphibian.description, modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
+                .padding(start = 8.dp, top = 8.dp,end = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Justify,
-                fontSize = 26.sp,
-                fontWeight = FontWeight.Bold
+//                fontSize = 26.sp,
+//                fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.body1
             )
 
             Box(modifier = Modifier
@@ -84,31 +84,6 @@ fun AmphibianCard(amphibian:AmphibianModel, modifier: Modifier = Modifier) {
     }
 
 }
-
-@Composable
-fun ImageTest() {
-    Box(
-
-        modifier = Modifier
-            .width(300.dp)
-            .height(500.dp),
-        contentAlignment = Alignment.Center
-
-    ) {
-
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data("https://images.pexels.com/photos/3635870/pexels-photo-3635870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
-                .crossfade(true)
-                .build(),
-            //error = painterResource(R.drawable.ic_broken_image),
-            // placeholder = painterResource(R.drawable.loading_img),
-             contentDescription = "Amphibian Image",
-            // contentScale = ContentScale.FillBounds,
-        )
-    }
-}
-
 
 @Composable
 @Preview
