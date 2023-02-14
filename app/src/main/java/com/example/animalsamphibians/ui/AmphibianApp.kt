@@ -13,16 +13,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import com.example.animalsamphibians.R
+import com.example.animalsamphibians.ui.screens.AmphibianVIewModel
 import com.example.animalsamphibians.ui.screens.HomeScreen
 
 
 @Composable
-fun AmphibianApp(){
+fun AmphibianApp(viewModel: AmphibianVIewModel){
     Scaffold(
         topBar = { AmphibianTopAppBar() }
     ) {
-        HomeScreen(modifier = Modifier.fillMaxSize().padding(it))
+        HomeScreen(viewModel.amphibianUiState,modifier = Modifier.fillMaxSize().padding(it))
     }
 }
 
