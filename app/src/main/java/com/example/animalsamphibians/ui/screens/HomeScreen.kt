@@ -17,14 +17,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.animalsamphibians.model.AmphibianModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    ListAmphibians(modifier= modifier)
+fun HomeScreen(uiState: AmphibianUiState,modifier: Modifier = Modifier) {
+    when(uiState){
+        is AmphibianUiState.Loading -> CircularProgressIndicator()
+        is AmphibianUiState.Success -> ListAmphibians(modifier= modifier)
+        else -> Text(text = "Error", style = MaterialTheme.typography.h3)
+    }
+
 }
 
 @Composable
@@ -53,7 +57,7 @@ fun AmphibianCard(amphibian:AmphibianModel, modifier: Modifier = Modifier) {
             )
             Text(text = amphibian.description, modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 8.dp, top = 8.dp,end = 8.dp, bottom = 8.dp),
+                .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 8.dp),
                 textAlign = TextAlign.Justify,
 //                fontSize = 26.sp,
 //                fontWeight = FontWeight.Bold
