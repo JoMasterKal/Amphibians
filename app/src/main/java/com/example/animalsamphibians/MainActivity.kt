@@ -10,7 +10,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.animalsamphibians.ui.AmphibianApp
+import com.example.animalsamphibians.ui.screens.AmphibianVIewModel
 import com.example.animalsamphibians.ui.theme.AnimalsAmphibiansTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +25,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    AmphibianApp()
+                    val viewModel: AmphibianVIewModel  = viewModel()
+                    AmphibianApp(viewModel)
                 }
             }
         }
