@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animalsamphibians.model.AmphibianModel
+import com.example.animalsamphibians.network.AmphibianApi
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -28,8 +29,11 @@ class AmphibianVIewModel : ViewModel() {
 
     fun getAmphibians() {
         viewModelScope.launch {
-            amphibianUiState = try {
-                AmphibianUiState.Success(amphiList)
+            val listResult = AmphibianApi.retrofitService.getAmphibians()
+            print("######### $listResult ######")
+            amphibianUiState =
+                try {
+                AmphibianUiState.Success(listResult)
             }catch (e: IOException) {
                 AmphibianUiState.Error
             }
