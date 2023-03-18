@@ -25,19 +25,19 @@ import com.example.animalsamphibians.model.AmphibianModel
 fun HomeScreen(uiState: AmphibianUiState,modifier: Modifier = Modifier) {
     when(uiState){
         is AmphibianUiState.Loading -> CircularProgressIndicator()
-        is AmphibianUiState.Success -> ListAmphibians(modifier= modifier)
+        is AmphibianUiState.Success -> ListAmphibians(animals = uiState.animals, modifier= modifier)
         else -> Text(text = "Error", style = MaterialTheme.typography.h3)
     }
 
 }
 
 @Composable
-fun ListAmphibians(modifier: Modifier = Modifier) {
+fun ListAmphibians(animals:List<AmphibianModel>,modifier: Modifier = Modifier) {
     LazyColumn(modifier= modifier
         .padding(8.dp)
         .background(MaterialTheme.colors.background)
     ){
-        items(amphiList) {
+        items(animals) {
             AmphibianCard(amphibian = it,modifier = modifier.padding(top = 8.dp))
         }
     }
@@ -81,7 +81,7 @@ fun AmphibianCard(amphibian:AmphibianModel, modifier: Modifier = Modifier) {
                     //error = painterResource(R.drawable.ic_broken_image),
                     //placeholder = painterResource(R.drawable.loading_img),
                     contentDescription = "Amphibian Image",
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.FillWidth,
                 )
             }
         }
