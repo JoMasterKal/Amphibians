@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
-import com.example.animalsamphibians.model.AmphibianModel
+import com.example.animalsamphibians.data.model.AmphibianModel
 
 @Composable
 fun HomeScreen(uiState: AmphibianUiState,modifier: Modifier = Modifier) {
@@ -32,7 +32,7 @@ fun HomeScreen(uiState: AmphibianUiState,modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ListAmphibians(animals:List<AmphibianModel>,modifier: Modifier = Modifier) {
+fun ListAmphibians(animals:List<AmphibianModel>, modifier: Modifier = Modifier) {
     LazyColumn(modifier= modifier
         .padding(8.dp)
         .background(MaterialTheme.colors.background)
@@ -44,7 +44,7 @@ fun ListAmphibians(animals:List<AmphibianModel>,modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AmphibianCard(amphibian:AmphibianModel, modifier: Modifier = Modifier) {
+fun AmphibianCard(amphibian: AmphibianModel, modifier: Modifier = Modifier) {
     Card(elevation = 8.dp, modifier = modifier) {
         Column(modifier = Modifier) {
             Text(text = amphibian.name, modifier = Modifier
