@@ -5,10 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.animalsamphibians.model.AmphibianModel
-import com.example.animalsamphibians.network.AmphibianApi
+import com.example.animalsamphibians.data.model.AmphibianModel
+import com.example.animalsamphibians.domain.repository.AmphibianRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
 sealed interface AmphibianUiState {
     data class Success(val animals: List<AmphibianModel>) : AmphibianUiState
@@ -17,7 +19,10 @@ sealed interface AmphibianUiState {
 }
 
 
-class AmphibianVIewModel : ViewModel() {
+@HiltViewModel
+class AmphibianVIewModel @Inject constructor(
+    private val repository: AmphibianRepository
+) : ViewModel() {
 
     var amphibianUiState: AmphibianUiState by mutableStateOf(AmphibianUiState.Loading)
         private set
@@ -29,7 +34,8 @@ class AmphibianVIewModel : ViewModel() {
 
     fun getAmphibians() {
         viewModelScope.launch {
-            val listResult = AmphibianApi.retrofitService.getAmphibians()
+            val listResult = repository.getAmphibians()
+                //AmphibianApi.retrofitService.getAmphibians()
             print("######### $listResult ######")
             amphibianUiState =
                 try {
